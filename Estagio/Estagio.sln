@@ -13,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{48
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infra", "4-Infra", "{53161176-5E4A-49CB-886D-1B084A2A283C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estagio.Application", "Estagio.Application\Estagio.Application.csproj", "{4E07A158-DDD1-4F38-901A-E819722C2C61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estagio.Application", "Estagio.Application\Estagio.Application.csproj", "{4E07A158-DDD1-4F38-901A-E819722C2C61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estagio.Domain", "Estagio.Domain\Estagio.Domain.csproj", "{B9B71461-3868-4F65-8306-0F2B858CB314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estagio.Domain", "Estagio.Domain\Estagio.Domain.csproj", "{B9B71461-3868-4F65-8306-0F2B858CB314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Estagio.Infra", "Estagio.Infra\Estagio.Infra.csproj", "{27038C00-6E18-4ED3-9582-3033B88066A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Estagio.Data", "Estagio.Infra\Estagio.Data.csproj", "{27038C00-6E18-4ED3-9582-3033B88066A4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1-Data", "4.1-Data", "{EDEEE8B2-9B80-44B2-B04D-515E72485C77}"
 EndProject
