@@ -1,4 +1,5 @@
 using Estagio.Data.Context;
+using Estagio.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
@@ -24,6 +25,8 @@ namespace Estagio
             services.AddControllersWithViews();
 
             services.AddDbContext<EstagioContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("EstagioDB")).EnableSensitiveDataLogging());
+
+            NativeInjector.RegisterServices(services);
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

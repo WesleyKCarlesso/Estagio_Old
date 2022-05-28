@@ -30,7 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Estagio.Application\Estagio.Application.csproj" />
     <ProjectReference Include="..\Estagio.Infra\Estagio.Data.csproj" />
+    <ProjectReference Include="..\Estagio.IoC\Estagio.IoC.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

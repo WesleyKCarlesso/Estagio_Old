@@ -1,8 +1,6 @@
-﻿using Estagio.Domain.Models;
-
-namespace Estagio.Domain.Entities
+﻿namespace Estagio.Application.ViewModels
 {
-    public class Usuario : Entity
+    public class UsuarioViewModel
     {
         public long Id { get; set; }
 
