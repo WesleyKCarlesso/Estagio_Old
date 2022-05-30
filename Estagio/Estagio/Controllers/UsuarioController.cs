@@ -1,12 +1,15 @@
 ﻿using Estagio.Application.Interfaces;
 using Estagio.Application.ViewModels;
+using Estagio.Auth.Packages;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Estagio.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]  // Authorize faz os métodos por padrão serem privados para quem tem o token
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService usuarioService;
@@ -23,7 +26,7 @@ namespace Estagio.Controllers
             return Ok(users);
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public IActionResult Post(UsuarioViewModel usuarioViewModel)
         {
             return Ok(this.usuarioService.Post(usuarioViewModel));
@@ -43,13 +46,15 @@ namespace Estagio.Controllers
             return Ok(user);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        [HttpDelete]
+        public IActionResult Delete()
         {
-            return Ok(this.usuarioService.Delete(id));
+            string userId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);   // somente o próprio usuário pode deletar seu registro
+
+            return Ok(this.usuarioService.Delete(userId));
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost("authenticate"), AllowAnonymous]  // qualquer um pode realizar esta operação
         public IActionResult Authenticate(UserAuthenticateRequestViewModel usuarioViewModel)
         {
             return Ok(this.usuarioService.Authenticate(usuarioViewModel));
