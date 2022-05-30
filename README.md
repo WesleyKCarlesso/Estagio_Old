@@ -1,3 +1,2 @@
 # Estagio
-Versionamento do estágio obrigatório
-# teste
+Versionamento do projeto Controle de Vendas Internas
