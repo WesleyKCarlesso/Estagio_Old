@@ -1,3 +1,5 @@
+using AutoMapper;
+using Estagio.Application.AutoMapper;
 using Estagio.Data.Context;
 using Estagio.IoC;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +29,8 @@ namespace Estagio
             services.AddDbContext<EstagioContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("EstagioDB")).EnableSensitiveDataLogging());
 
             NativeInjector.RegisterServices(services);
+
+            services.AddAutoMapper(typeof(AutoMapperSetup));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

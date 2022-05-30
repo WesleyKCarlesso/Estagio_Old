@@ -6,5 +6,7 @@ namespace Estagio.Application.Interfaces
     public interface IUsuarioService
     {
         List<UsuarioViewModel> Get();
+
+        bool Post(UsuarioViewModel usuarioViewModel);
     }
 }

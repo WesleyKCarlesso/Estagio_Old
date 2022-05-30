@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Template.Domain.Interfaces
 {
-    public interface IUsuarioRepository
+    public interface IUsuarioRepository : IRepository<Usuario>
     {
         IEnumerable<Usuario> GetAll();
     }
