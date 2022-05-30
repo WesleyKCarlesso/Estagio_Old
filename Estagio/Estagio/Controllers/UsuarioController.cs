@@ -1,12 +1,15 @@
 ﻿using Estagio.Application.Interfaces;
 using Estagio.Application.ViewModels;
+using Estagio.Auth.Packages;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Estagio.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController, Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService usuarioService;
@@ -23,7 +26,7 @@ namespace Estagio.Controllers
             return Ok(users);
         }
 
-        [HttpPost]
+        [HttpPost, AllowAnonymous]
         public IActionResult Post(UsuarioViewModel usuarioViewModel)
         {
             return Ok(this.usuarioService.Post(usuarioViewModel));
@@ -43,13 +46,15 @@ namespace Estagio.Controllers
             return Ok(user);
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
+        [HttpDelete]
+        public IActionResult Delete()
         {
-            return Ok(this.usuarioService.Delete(id));
+            string usuarioId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+
+            return Ok(this.usuarioService.Delete(usuarioId));
         }
 
-        [HttpPost("authenticate")]
+        [HttpPost("authenticate"), AllowAnonymous]
         public IActionResult Authenticate(UserAuthenticateRequestViewModel usuarioViewModel)
         {
             return Ok(this.usuarioService.Authenticate(usuarioViewModel));
