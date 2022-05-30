@@ -28,5 +28,25 @@ namespace Estagio.Controllers
         {
             return Ok(this.usuarioService.Post(usuarioViewModel));
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(string id)
+        {
+            var user = this.usuarioService.GetById(id);
+            return Ok(user);
+        }
+
+        [HttpPut]
+        public IActionResult Put(UsuarioViewModel usuarioViewModel)
+        {
+            var user = this.usuarioService.Put(usuarioViewModel);
+            return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            return Ok(this.usuarioService.Delete(id));
+        }
     }
 }
