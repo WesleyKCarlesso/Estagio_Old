@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Estagio.Application.Interfaces;
 using Estagio.Application.ViewModels;
+using Estagio.Auth.Packages;
 using Estagio.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -87,6 +88,15 @@ namespace Estagio.Application.Services
             }
 
             return this.usuarioRepository.Delete(usuario);
+        }
+
+        public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRequestViewModel user)
+        {
+            Usuario usuario = this.usuarioRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower());
+            if (usuario == null)
+                throw new Exception("User not found");
+
+            return new UserAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(usuario), TokenService.GenerateToken(usuario));
         }
     }
 }

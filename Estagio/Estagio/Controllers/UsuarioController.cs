@@ -48,5 +48,11 @@ namespace Estagio.Controllers
         {
             return Ok(this.usuarioService.Delete(id));
         }
+
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(UserAuthenticateRequestViewModel usuarioViewModel)
+        {
+            return Ok(this.usuarioService.Authenticate(usuarioViewModel));
+        }
     }
 }
