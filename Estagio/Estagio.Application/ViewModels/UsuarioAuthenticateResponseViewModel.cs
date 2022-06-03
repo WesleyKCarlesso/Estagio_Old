@@ -1,8 +1,8 @@
 ﻿namespace Estagio.Application.ViewModels
 {
-    public class UserAuthenticateResponseViewModel
+    public class UsuarioAuthenticateResponseViewModel
     {
-        public UserAuthenticateResponseViewModel(UsuarioViewModel usuario, string token)
+        public UsuarioAuthenticateResponseViewModel(UsuarioViewModel usuario, string token)
         {
             this.Usuario = usuario;
             this.Token = token;

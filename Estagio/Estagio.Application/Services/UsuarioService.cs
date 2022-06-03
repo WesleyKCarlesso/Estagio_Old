@@ -5,7 +5,9 @@ using Estagio.Auth.Packages;
 using Estagio.Domain.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Template.Domain.Interfaces;
+using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace Estagio.Application.Services
 {
@@ -33,6 +35,11 @@ namespace Estagio.Application.Services
 
         public bool Post(UsuarioViewModel usuario)
         {
+            if (usuario.Id != 0)
+                throw new Exception("UsuarioId precisa estar vazio");
+
+            Validator.ValidateObject(usuario, new ValidationContext(usuario), true);
+
             Usuario _usuario = mapper.Map<Usuario>(usuario);    // conversão de usuario view model para entidade com o auto mapper
 
             this.usuarioRepository.Create(_usuario);
@@ -44,14 +51,14 @@ namespace Estagio.Application.Services
         {
             if (!long.TryParse(id, out long userId)) // tenta converter para long, caso não consiga dispara a exceção
             {
-                throw new Exception("UserId is not valid");
+                throw new Exception("UsuarioId não é válido");
             }
 
             Usuario usuario = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
 
             if (usuario == null)
             {
-                throw new Exception("User not found");
+                throw new Exception("Usuario não encontrado");
             }
 
             return mapper.Map<UsuarioViewModel>(usuario);
@@ -63,7 +70,7 @@ namespace Estagio.Application.Services
 
             if (usuario == null)
             {
-                throw new Exception("User not found");
+                throw new Exception("Usuario não encontrado");
             }
 
             usuario = mapper.Map<Usuario>(usuarioViewModel);
@@ -77,26 +84,31 @@ namespace Estagio.Application.Services
         {
             if (!long.TryParse(id, out long userId)) // tenta converter para long, caso não consiga dispara a exceção
             {
-                throw new Exception("UserId is not valid");
+                throw new Exception("UsuarioId não é válido");
             }
 
             Usuario usuario = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
 
             if (usuario == null)
             {
-                throw new Exception("User not found");
+                throw new Exception("Usuario não encontrado");
             }
 
             return this.usuarioRepository.Delete(usuario);
         }
 
-        public UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRequestViewModel user)
+        public UsuarioAuthenticateResponseViewModel Authenticate(UsuarioAuthenticateRequestViewModel user)
         {
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                throw new Exception("Email/Senha são obrigatórios");
+            }
+
             Usuario usuario = this.usuarioRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower());
             if (usuario == null)
-                throw new Exception("User not found");
+                throw new Exception("Usuario não encontrado");
 
-            return new UserAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(usuario), TokenService.GenerateToken(usuario));
+            return new UsuarioAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(usuario), TokenService.GenerateToken(usuario));
         }
     }
 }

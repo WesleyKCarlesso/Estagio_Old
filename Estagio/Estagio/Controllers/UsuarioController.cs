@@ -55,7 +55,7 @@ namespace Estagio.Controllers
         }
 
         [HttpPost("authenticate"), AllowAnonymous]
-        public IActionResult Authenticate(UserAuthenticateRequestViewModel usuarioViewModel)
+        public IActionResult Authenticate(UsuarioAuthenticateRequestViewModel usuarioViewModel)
         {
             return Ok(this.usuarioService.Authenticate(usuarioViewModel));
         }

@@ -15,6 +15,6 @@ namespace Estagio.Application.Interfaces
 
         bool Delete(string id);
 
-        UserAuthenticateResponseViewModel Authenticate(UserAuthenticateRequestViewModel user);
+        UsuarioAuthenticateResponseViewModel Authenticate(UsuarioAuthenticateRequestViewModel user);
     }
 }
