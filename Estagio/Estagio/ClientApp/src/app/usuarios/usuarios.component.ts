@@ -10,7 +10,10 @@ export class UsuariosComponent implements OnInit {
 
   usuarios: any[] = [];
   usuario: any = {};
+  usuarioLogado: any = {};
+  usuarioLogin: any = {};
   showList: boolean = true;
+  isAuthenticated: boolean = false;
 
   constructor(private usuarioDataService: UsuarioDataService) { }
 
@@ -73,7 +76,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   delete(usuario) {
-    this.usuarioDataService.delete(usuario.id).subscribe(data => {
+    this.usuarioDataService.delete().subscribe(data => {
       if (data) {
         alert('Usuário excluído com sucesso!');
         this.get();
@@ -85,5 +88,25 @@ export class UsuariosComponent implements OnInit {
       console.log(error);
       alert('erro interno do sistema');  
     })
+  }
+
+  authenticate() {
+    this.usuarioDataService.authenticate(this.usuarioLogin).subscribe(data => {
+      if (data.usuario) {
+        localStorage.setItem('user_logged', JSON.stringify(data));
+        this.get();
+        this.getUserData();
+      } else {
+        alert('Usuário inválido!')
+      }
+    }, error => {
+      console.log(error);
+      alert('Usuário inválido');
+    })
+  }
+
+  getUserData() {
+    this.usuarioLogado = JSON.parse(localStorage.getItem('user_logged'));
+    this.isAuthenticated = this.usuarioLogado != null;
   }
 }

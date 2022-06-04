@@ -9,6 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioDataService } from './_data-services/usuario.data-service';
+import { Interceptor } from 'src/app.interceptor.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UsuarioDataService } from './_data-services/usuario.data-service';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'usuarios', component: UsuariosComponent },
-    ])
+    ]),
+    Interceptor
   ],
   providers: [UsuarioDataService],
   bootstrap: [AppComponent]

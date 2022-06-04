@@ -19,7 +19,7 @@ namespace Estagio.Controllers
             this.usuarioService = usuarioService;
         }
 
-        [HttpGet, AllowAnonymous]
+        [HttpGet]
         public IActionResult Get()
         {
             var users = this.usuarioService.Get();
@@ -39,17 +39,17 @@ namespace Estagio.Controllers
             return Ok(user);
         }
 
-        [HttpPut, AllowAnonymous]
+        [HttpPut]
         public IActionResult Put(UsuarioViewModel usuarioViewModel)
         {
             var user = this.usuarioService.Put(usuarioViewModel);
             return Ok(user);
         }
 
-        [HttpDelete("{usuarioId}"), AllowAnonymous]
-        public IActionResult Delete(string usuarioId)
+        [HttpDelete]
+        public IActionResult Delete()
         {
-            //string usuarioId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+            string usuarioId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
 
             return Ok(this.usuarioService.Delete(usuarioId));
         }

@@ -1,41 +1,61 @@
+<p *ngIf="isAuthenticated">Welcome ({{usuarioLogado?.usuario?.nome}})</p>
 <button class="btn-primary" (click)="showList = !showList">{{showList ? 'Novo usuário' : 'Lista de usuários'}}</button>
-<p>Usuarios ({{usuarios?.length}})</p>
+<p *ngIf="isAuthenticated">Usuarios ({{usuarios?.length}})</p>
 <div *ngIf="showList">
+  <div *ngIf="isAuthenticated">
     <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Ações</th>
-            <th scope="col">ID</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Email</th>
-            <th scope="col">Telefone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let usuario of usuarios">
-            <th scope="row">
-              <button class="btn-primary" (click)="openDetails(usuario)">Editar</button>
-              <button class="btn-danger" (click)="delete(usuario)">Excluir</button>
-            </th>
-            <th scope="row">{{usuario.id}}</th>
-            <th scope="row">{{usuario.nome}}</th>
-            <th scope="row">{{usuario.email}}</th>
-            <th scope="row">{{usuario.telefone}}</th>
-          </tr>
-        </tbody>
-      </table>
-    
+      <thead>
+        <tr>
+          <th scope="col">Ações</th>
+          <th scope="col">ID</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Telefone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <th scope="row">
+            <button class="btn-primary" (click)="openDetails(usuario)">Editar</button>
+            <button class="btn-danger" (click)="delete(usuario)">Excluir</button>
+          </th>
+          <th scope="row">{{usuario.id}}</th>
+          <th scope="row">{{usuario.nome}}</th>
+          <th scope="row">{{usuario.email}}</th>
+          <th scope="row">{{usuario.telefone}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 <div *ngIf="!showList">
-    <form>
-        <div class="form-group">
-            <label for="exampleInputName">Nome:</label>
-            <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Nome" [(ngModel)]="usuario.nome" name="nome">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail">Email</label>
-            <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email" [(ngModel)]="usuario.email" name="email">
-        </div>
-        <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
-    </form>
+  <form>
+    <div class="form-group">
+      <label for="exampleInputName">Nome:</label>
+      <input type="text" class="form-control" id="exampleInputName" aria-describedby="nameHelp" placeholder="Nome"
+        [(ngModel)]="usuario.nome" name="nome">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail">Email</label>
+      <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email" [(ngModel)]="usuario.email"
+        name="email">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
+  </form>
+</div>
+<div *ngIf="!isAuthenticated">
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail">Email</label>
+      <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email"
+        [(ngModel)]="usuarioLogin.email" name="email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputName">Senha</label>
+      <input type="text" class="form-control" id="exampleInputSenha" aria-describedby="senhaHelp" placeholder="Senha"
+        [(ngModel)]="usuarioLogin.senha" name="senha">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="authenticate()">Login</button>
+  </form>
 </div>
