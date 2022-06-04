@@ -66,6 +66,11 @@ namespace Estagio.Application.Services
 
         public bool Put(UsuarioViewModel usuarioViewModel)
         {
+            if (usuarioViewModel.Id == 0)
+            {
+                throw new Exception("ID não é válido");
+            }
+
             Usuario usuario = this.usuarioRepository.Find(x => x.Id == usuarioViewModel.Id && !x.IsDeleted);
 
             if (usuario == null)

@@ -19,7 +19,7 @@ namespace Estagio.Controllers
             this.usuarioService = usuarioService;
         }
 
-        [HttpGet]
+        [HttpGet, AllowAnonymous]
         public IActionResult Get()
         {
             var users = this.usuarioService.Get();
@@ -39,7 +39,7 @@ namespace Estagio.Controllers
             return Ok(user);
         }
 
-        [HttpPut]
+        [HttpPut, AllowAnonymous]
         public IActionResult Put(UsuarioViewModel usuarioViewModel)
         {
             var user = this.usuarioService.Put(usuarioViewModel);
