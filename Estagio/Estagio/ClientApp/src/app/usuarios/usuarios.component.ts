@@ -71,4 +71,19 @@ export class UsuariosComponent implements OnInit {
       alert('erro interno do sistema');  
     })
   }
+
+  delete(usuario) {
+    this.usuarioDataService.delete(usuario.id).subscribe(data => {
+      if (data) {
+        alert('Usuário excluído com sucesso!');
+        this.get();
+        this.usuario = {};
+      } else {
+        alert('Erro ao excluir o usuário!')
+      }
+    }, error => {
+      console.log(error);
+      alert('erro interno do sistema');  
+    })
+  }
 }

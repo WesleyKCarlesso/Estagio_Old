@@ -19,4 +19,8 @@ export class UsuarioDataService {
     put(data) {
         return this.http.put(this.module, data)
     }
+
+    delete(usuarioId) {
+        return this.http.delete(this.module + '/' + usuarioId)
+    }
 }

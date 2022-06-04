@@ -13,7 +13,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let usuario of usuarios">
-            <th scope="row"><button class="btn-primary" (click)="openDetails(usuario)">Editar</button></th>
+            <th scope="row">
+              <button class="btn-primary" (click)="openDetails(usuario)">Editar</button>
+              <button class="btn-danger" (click)="delete(usuario)">Excluir</button>
+            </th>
             <th scope="row">{{usuario.id}}</th>
             <th scope="row">{{usuario.nome}}</th>
             <th scope="row">{{usuario.email}}</th>
@@ -35,7 +38,4 @@
         </div>
         <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
     </form>
-</div>
-<div *ngIf="">
-
 </div>

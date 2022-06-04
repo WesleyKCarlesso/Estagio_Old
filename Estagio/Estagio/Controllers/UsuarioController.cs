@@ -46,10 +46,10 @@ namespace Estagio.Controllers
             return Ok(user);
         }
 
-        [HttpDelete]
-        public IActionResult Delete()
+        [HttpDelete("{usuarioId}"), AllowAnonymous]
+        public IActionResult Delete(string usuarioId)
         {
-            string usuarioId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+            //string usuarioId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
 
             return Ok(this.usuarioService.Delete(usuarioId));
         }
