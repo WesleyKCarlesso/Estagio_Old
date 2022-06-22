@@ -27,8 +27,8 @@
       </tbody>
     </table>
   </div>
-
 </div>
+
 <div *ngIf="!showList">
   <form>
     <div class="form-group">
@@ -41,10 +41,16 @@
       <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email" [(ngModel)]="usuario.email"
         name="email">
     </div>
+    <div class="form-group">
+      <label for="exampleInputEmail">Senha</label>
+      <input type="password" class="form-control" id="exampleInputEmail" placeholder="Senha" [(ngModel)]="usuario.senha"
+        name="senha">
+    </div>
     <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
   </form>
 </div>
-<div *ngIf="!isAuthenticated">
+
+<div *ngIf="!isAuthenticated && showList">
   <form>
     <div class="form-group">
       <label for="exampleInputEmail">Email</label>

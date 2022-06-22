@@ -18,7 +18,7 @@ export class UsuariosComponent implements OnInit {
   constructor(private usuarioDataService: UsuarioDataService) { }
 
   ngOnInit() {
-    this.get();
+
   }
 
   get() {
@@ -27,12 +27,11 @@ export class UsuariosComponent implements OnInit {
       this.showList = true;
     }, error => {
       console.log(error);
-      alert('erro interno do sistema');
+      alert('erro interno do sistema - get');
     })
   }
 
   save() {
-    debugger;
     if (this.usuario.id) {
       this.put()
     } else {
@@ -56,7 +55,7 @@ export class UsuariosComponent implements OnInit {
       }
     }, error => {
       console.log(error);
-      alert('erro interno do sistema');  
+      alert('erro interno do sistema - post');  
     })
   }
 
@@ -67,15 +66,15 @@ export class UsuariosComponent implements OnInit {
         this.get();
         this.usuario = {};
       } else {
-        alert('Erro ao cadastrar usuário!')
+        alert('Erro ao atualizar usuário!')
       }
     }, error => {
       console.log(error);
-      alert('erro interno do sistema');  
+      alert('erro interno do sistema - put');  
     })
   }
 
-  delete(usuario) {
+  delete() {
     this.usuarioDataService.delete().subscribe(data => {
       if (data) {
         alert('Usuário excluído com sucesso!');
@@ -86,12 +85,12 @@ export class UsuariosComponent implements OnInit {
       }
     }, error => {
       console.log(error);
-      alert('erro interno do sistema');  
+      alert('erro interno do sistema - delete');  
     })
   }
 
   authenticate() {
-    this.usuarioDataService.authenticate(this.usuarioLogin).subscribe(data => {
+    this.usuarioDataService.authenticate(this.usuarioLogin).subscribe((data:any) => {
       if (data.usuario) {
         localStorage.setItem('user_logged', JSON.stringify(data));
         this.get();

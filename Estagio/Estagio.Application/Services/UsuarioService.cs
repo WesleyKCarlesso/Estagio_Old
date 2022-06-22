@@ -6,6 +6,8 @@ using Estagio.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 using Template.Domain.Interfaces;
 using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
@@ -41,6 +43,7 @@ namespace Estagio.Application.Services
             Validator.ValidateObject(usuario, new ValidationContext(usuario), true);
 
             Usuario _usuario = mapper.Map<Usuario>(usuario);    // conversão de usuario view model para entidade com o auto mapper
+            _usuario.Senha = CriptografarSenha(_usuario.Senha);
 
             this.usuarioRepository.Create(_usuario);
 
@@ -79,6 +82,7 @@ namespace Estagio.Application.Services
             }
 
             usuario = mapper.Map<Usuario>(usuarioViewModel);
+            usuario.Senha = CriptografarSenha(usuario.Senha);
 
             this.usuarioRepository.Update(usuario);
 
@@ -102,18 +106,40 @@ namespace Estagio.Application.Services
             return this.usuarioRepository.Delete(usuario);
         }
 
-        public UsuarioAuthenticateResponseViewModel Authenticate(UsuarioAuthenticateRequestViewModel user)
+        public UsuarioAuthenticateResponseViewModel Authenticate(UsuarioAuthenticateRequestViewModel _usuario)
         {
-            if (string.IsNullOrEmpty(user.Email))
+            if (string.IsNullOrEmpty(_usuario.Email) || string.IsNullOrEmpty(_usuario.Senha))
             {
                 throw new Exception("Email/Senha são obrigatórios");
             }
 
-            Usuario usuario = this.usuarioRepository.Find(x => !x.IsDeleted && x.Email.ToLower() == user.Email.ToLower());
+            _usuario.Senha = CriptografarSenha(_usuario.Senha);
+
+            Usuario usuario = this.usuarioRepository
+                .Find(x => 
+                    !x.IsDeleted 
+                    && x.Email.ToLower() == _usuario.Email.ToLower()
+                    && x.Senha.ToLower() == _usuario.Senha.ToLower());
+
             if (usuario == null)
                 throw new Exception("Usuario não encontrado");
 
             return new UsuarioAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(usuario), TokenService.GenerateToken(usuario));
+        }
+
+        private string CriptografarSenha(string senha)
+        {
+            HashAlgorithm sha = new SHA1CryptoServiceProvider();
+
+            byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(senha));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            foreach (var caracter in encryptedPassword)
+            {
+                stringBuilder.Append(caracter.ToString("X2"));
+            }
+
+            return stringBuilder.ToString();
         }
     }
 }

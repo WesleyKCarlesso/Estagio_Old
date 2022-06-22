@@ -11,6 +11,7 @@ namespace Estagio.Data.Mappings
             builder.Property(x => x.Id).IsRequired();
 
             builder.Property(x => x.Nome).HasMaxLength(80).IsRequired().HasColumnName("Nome"); // tamanho maximo 300, é obrigatório e tem nome no banco "Nome"
+            builder.Property(x => x.Senha).IsRequired();
         }
     }
 }
