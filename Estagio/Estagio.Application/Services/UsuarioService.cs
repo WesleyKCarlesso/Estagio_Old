@@ -24,7 +24,7 @@ namespace Estagio.Application.Services
             this.mapper = mapper;
         }
 
-        public List<UsuarioViewModel> Get()
+        public List<UsuarioViewModel> GetAll()
         {
             List<UsuarioViewModel> usuarioViewModel = new List<UsuarioViewModel>();
 
@@ -39,6 +39,8 @@ namespace Estagio.Application.Services
         {
             if (usuario.Id != 0)
                 throw new Exception("UsuarioId precisa estar vazio");
+
+            usuario.Ativo = true;
 
             Validator.ValidateObject(usuario, new ValidationContext(usuario), true);
 
@@ -57,7 +59,7 @@ namespace Estagio.Application.Services
                 throw new Exception("UsuarioId não é válido");
             }
 
-            Usuario usuario = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
+            Usuario usuario = this.usuarioRepository.Find(x => x.Id == userId && x.Ativo);
 
             if (usuario == null)
             {
@@ -74,7 +76,7 @@ namespace Estagio.Application.Services
                 throw new Exception("ID não é válido");
             }
 
-            Usuario usuario = this.usuarioRepository.Find(x => x.Id == usuarioViewModel.Id && !x.IsDeleted);
+            Usuario usuario = this.usuarioRepository.Find(x => x.Id == usuarioViewModel.Id && x.Ativo);
 
             if (usuario == null)
             {
@@ -96,7 +98,7 @@ namespace Estagio.Application.Services
                 throw new Exception("UsuarioId não é válido");
             }
 
-            Usuario usuario = this.usuarioRepository.Find(x => x.Id == userId && !x.IsDeleted);
+            Usuario usuario = this.usuarioRepository.Find(x => x.Id == userId && x.Ativo);
 
             if (usuario == null)
             {
@@ -117,7 +119,7 @@ namespace Estagio.Application.Services
 
             Usuario usuario = this.usuarioRepository
                 .Find(x => 
-                    !x.IsDeleted 
+                    x.Ativo
                     && x.Email.ToLower() == _usuario.Email.ToLower()
                     && x.Senha.ToLower() == _usuario.Senha.ToLower());
 

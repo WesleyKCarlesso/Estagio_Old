@@ -73,7 +73,7 @@ namespace Estagio.Application.Tests.Services
         public void Get_ValidatingObject()
         {
             List<Usuario> usuarios = new List<Usuario>();
-            usuarios.Add(new Usuario { Id = new long(), Nome = "TesteWesley", Email = "teste@wesley.com", DateCreated = DateTime.Now });
+            usuarios.Add(new Usuario { Id = new long(), Nome = "TesteWesley", Email = "teste@wesley.com" });
 
             var usuarioRepository = new Mock<IUsuarioRepository>();
             usuarioRepository.Setup(x => x.GetAll()).Returns(usuarios);
@@ -83,7 +83,7 @@ namespace Estagio.Application.Tests.Services
             IMapper mapper = new Mapper(configuration);
 
             usuarioService = new UsuarioService(usuarioRepository.Object, mapper);
-            var result = usuarioService.Get();
+            var result = usuarioService.GetAll();
             Assert.True(result.Count > 0);
         }
 

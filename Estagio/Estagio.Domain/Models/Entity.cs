@@ -4,10 +4,8 @@ namespace Estagio.Domain.Models
 {
     public class Entity
     {
-        public DateTime DateCreated { get; set; }
+        public long Id { get; set; }
 
-        public DateTime? DateUpdated { get; set; }
-
-        public bool IsDeleted { get; set; }
+        public bool Ativo { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Template.Data.Repositories
 
         public IEnumerable<Usuario> GetAll()
         {
-            return Query(x => !x.IsDeleted);
+            return Query(x => x.Ativo);
         }
 
     }

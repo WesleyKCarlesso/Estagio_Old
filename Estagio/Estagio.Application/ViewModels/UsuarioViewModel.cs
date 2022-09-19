@@ -20,5 +20,7 @@ namespace Estagio.Application.ViewModels
         public string Telefone { get; set; }
 
         public bool Admin { get; set; }
+
+        public bool Ativo { get; set; }
     }
 }

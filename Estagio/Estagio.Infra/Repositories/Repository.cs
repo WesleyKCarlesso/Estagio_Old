@@ -113,7 +113,7 @@ namespace Template.Data.Repositories
             {
                 if (model is Entity)
                 {
-                    (model as Entity).IsDeleted = true;
+                    (model as Entity).Ativo = false;
                     EntityEntry<TEntity> _entry = _context.Entry(model);
 
                     DbSet.Attach(model);
