@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Estagio.Domain.Entities;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Estagio.Application.ViewModels
 {
@@ -22,5 +24,7 @@ namespace Estagio.Application.ViewModels
         public bool Admin { get; set; }
 
         public bool Ativo { get; set; }
+
+        public List<Compra> Compras { get; set; }
     }
 }

@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Estagio.Domain\Estagio.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

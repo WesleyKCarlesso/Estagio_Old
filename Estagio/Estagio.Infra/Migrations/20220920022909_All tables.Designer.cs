@@ -4,14 +4,16 @@ using Estagio.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Estagio.Data.Migrations
 {
     [DbContext(typeof(EstagioContext))]
-    partial class EstagioContextModelSnapshot : ModelSnapshot
+    [Migration("20220920022909_All tables")]
+    partial class Alltables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
