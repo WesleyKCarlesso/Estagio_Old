@@ -10,7 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioDataService } from './_data-services/usuario.data-service';
 import { Interceptor } from 'src/app.interceptor.module';
-import { CompraComponent } from '../compra/compra.component';
+import { CompraComponent } from './compra/compra.component';
+import { AreaSupervisorComponent } from './areaSupervisor/areaSupervisor.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CompraComponent } from '../compra/compra.component';
     NavMenuComponent,
     HomeComponent,
     UsuariosComponent,
-    CompraComponent
+    CompraComponent,
+    AreaSupervisorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,6 +30,7 @@ import { CompraComponent } from '../compra/compra.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'usuarios', component: UsuariosComponent },
       { path: 'compras', component: CompraComponent },
+      { path: 'areaSupervisor', component: AreaSupervisorComponent },
     ]),
     Interceptor
   ],

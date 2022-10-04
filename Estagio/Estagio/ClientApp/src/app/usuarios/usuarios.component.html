@@ -1,5 +1,5 @@
 <p *ngIf="isAuthenticated">Welcome ({{usuarioLogado?.usuario?.nome}})</p>
-<button class="btn-primary" (click)="showList = !showList">{{showList ? 'Novo usuário' : 'Lista de usuários'}}</button>
+<button class="btn btn-primary" (click)="showList = !showList">{{showList ? 'Registrar-se' : 'Login'}}</button>
 <p *ngIf="isAuthenticated">Usuarios ({{usuarios?.length}})</p>
 <div *ngIf="showList">
   <div *ngIf="isAuthenticated">
@@ -72,6 +72,6 @@
       <input type="text" class="form-control" id="exampleInputSenha" aria-describedby="senhaHelp" placeholder="Senha"
         [(ngModel)]="usuarioLogin.senha" name="senha">
     </div>
-    <button type="submit" class="btn btn-primary" (click)="authenticate()">Login</button>
+    <button type="submit" class="btn btn-primary" (click)="authenticate()">Logar</button>
   </form>
 </div>
