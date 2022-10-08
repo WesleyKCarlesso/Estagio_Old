@@ -4,6 +4,7 @@ using Estagio.Auth.Packages;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace Estagio.Controllers
@@ -19,10 +20,24 @@ namespace Estagio.Controllers
             this.usuarioService = usuarioService;
         }
 
+        //[HttpGet]
+        //public IActionResult GetAll()
+        //{
+        //    var users = this.usuarioService.GetAll();
+        //    return Ok(users);
+        //}
+
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetLogged()
         {
-            var users = this.usuarioService.GetAll();
+            string usuarioId = TokenService.GetValueFromClaim(HttpContext.User.Identity, ClaimTypes.NameIdentifier);
+
+            var users = new List<UsuarioViewModel>();
+
+            var user = this.usuarioService.GetById(usuarioId);
+
+            users.Add(user);
+
             return Ok(users);
         }
 

@@ -1,3 +1,11 @@
 .btn-primary {
     margin-bottom: 7px;
 }
+
+.btnOpcoes {
+    margin-left: 35%;
+    margin-right: 35%;
+    width: 30%;
+    background-color: grey;
+    border: none;
+}

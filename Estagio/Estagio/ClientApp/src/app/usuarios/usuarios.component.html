@@ -1,6 +1,5 @@
-<p *ngIf="isAuthenticated">Welcome ({{usuarioLogado?.usuario?.nome}})</p>
+<h3 *ngIf="isAuthenticated">Bem vindo(a), {{usuarioLogado?.usuario?.nome}}!</h3>
 <button class="btn btn-primary" (click)="showList = !showList">{{showList ? 'Registrar-se' : 'Login'}}</button>
-<p *ngIf="isAuthenticated">Usuarios ({{usuarios?.length}})</p>
 <div *ngIf="showList">
   <div *ngIf="isAuthenticated">
     <table class="table">
@@ -26,6 +25,107 @@
         </tr>
       </tbody>
     </table>
+
+    <h2>Realizar Compra</h2>
+      
+    <button class="btnOpcoes btnRealizarCompra btn btn-primary">Realizar Compra</button>
+
+    <table class="table tableRealizarCompra">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btnOpcoes btnHistorico btn btn-primary">Consultar Histórico</button>
+
+    <table class="table tableHistorico">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btnOpcoes btnEditarDados btn btn-primary">Editar Dados</button>
+
+    <table class="table tableEditarDados">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -38,13 +138,11 @@
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="usuario.email"
-        name="email">
+      <input type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="usuario.email" name="email">
     </div>
     <div class="form-group">
       <label for="login">Login</label>
-      <input type="text" class="form-control" id="login" placeholder="Login" [(ngModel)]="usuario.login"
-        name="login">
+      <input type="text" class="form-control" id="login" placeholder="Login" [(ngModel)]="usuario.login" name="login">
     </div>
     <div class="form-group">
       <label for="senha">Senha</label>
