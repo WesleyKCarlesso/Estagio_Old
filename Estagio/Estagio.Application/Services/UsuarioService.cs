@@ -6,8 +6,6 @@ using Estagio.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
-using System.Text;
 using Template.Domain.Interfaces;
 using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
@@ -35,19 +33,19 @@ namespace Estagio.Application.Services
             return usuarioViewModel;
         }
 
-        public bool Post(UsuarioViewModel usuario)
+        public bool Post(UsuarioViewModel usuarioViewModel)
         {
-            if (usuario.Id != 0)
+            if (usuarioViewModel.Id != 0)
                 throw new Exception("UsuarioId precisa estar vazio");
 
-            usuario.Ativo = true;
+            usuarioViewModel.Ativo = true;
 
-            Validator.ValidateObject(usuario, new ValidationContext(usuario), true);
+            Validator.ValidateObject(usuarioViewModel, new ValidationContext(usuarioViewModel), true);
 
-            Usuario _usuario = mapper.Map<Usuario>(usuario);    // conversão de usuario view model para entidade com o auto mapper
-            _usuario.Senha = CriptografarSenha(_usuario.Senha);
+            Usuario usuario = mapper.Map<Usuario>(usuarioViewModel);    // conversão de usuario view model para entidade com o auto mapper
+            usuario.Senha = CriptografarSenha(usuario.Senha);
 
-            this.usuarioRepository.Create(_usuario);
+            this.usuarioRepository.Create(usuario);
 
             return true;
         }
@@ -65,6 +63,8 @@ namespace Estagio.Application.Services
             {
                 throw new Exception("Usuario não encontrado");
             }
+
+            usuario.Senha = this.DecodeFrom64(usuario.Senha);
 
             return mapper.Map<UsuarioViewModel>(usuario);
         }
@@ -131,17 +131,31 @@ namespace Estagio.Application.Services
 
         private string CriptografarSenha(string senha)
         {
-            HashAlgorithm sha = new SHA1CryptoServiceProvider();
-
-            byte[] encryptedPassword = sha.ComputeHash(Encoding.UTF8.GetBytes(senha));
-
-            StringBuilder stringBuilder = new StringBuilder();
-            foreach (var caracter in encryptedPassword)
+            try
             {
-                stringBuilder.Append(caracter.ToString("X2"));
+                byte[] encData_byte = new byte[senha.Length];
+                encData_byte = System.Text.Encoding.UTF8.GetBytes(senha);
+                string encodedData = Convert.ToBase64String(encData_byte);
+                
+                return encodedData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in base64Encode" + ex.Message);
             }
 
-            return stringBuilder.ToString();
+        }
+
+        public string DecodeFrom64(string encodedData)
+        {
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            System.Text.Decoder utf8Decode = encoder.GetDecoder();
+            byte[] todecode_byte = Convert.FromBase64String(encodedData);
+            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[] decoded_char = new char[charCount];
+            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+            string result = new String(decoded_char);
+            return result;
         }
     }
 }

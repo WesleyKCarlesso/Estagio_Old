@@ -9,9 +9,9 @@ namespace Estagio.Application.Interfaces
 
         bool Post(UsuarioViewModel usuarioViewModel);
 
-        UsuarioViewModel GetById(string id);
-
         bool Put(UsuarioViewModel usuarioViewModel);
+
+        UsuarioViewModel GetById(string id);
 
         bool Delete(string id);
 

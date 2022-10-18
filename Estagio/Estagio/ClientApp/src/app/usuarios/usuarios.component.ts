@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioDataService } from '../_data-services/usuario.data-service';
 
 @Component({
@@ -14,11 +15,20 @@ export class UsuariosComponent implements OnInit {
   usuarioLogin: any = {};
   showList: boolean = true;
   isAuthenticated: boolean = false;
+  formulario: FormGroup;
+  mostrarRealizarCompra: boolean = false;
+  mostrarHistorico: boolean = false;
+  mostrarEditarDados: boolean = false;
 
-  constructor(private usuarioDataService: UsuarioDataService) { }
+  constructor(
+    private usuarioDataService: UsuarioDataService,
+    private formBuilder: FormBuilder
+  ) { }
 
   ngOnInit() {
-
+    this.formulario = this.formBuilder.group({
+      emailFormControl: [null, [Validators.required, Validators.email]]
+    });
   }
 
   get() {
@@ -28,7 +38,7 @@ export class UsuariosComponent implements OnInit {
     }, error => {
       console.log(error);
       alert('erro interno do sistema - get');
-    })
+    });
   }
 
   save() {
@@ -48,7 +58,7 @@ export class UsuariosComponent implements OnInit {
     this.usuarioDataService.post(this.usuario).subscribe(data => {
       if (data) {
         alert('Usuário cadastrado com sucesso!');
-        this.get();
+        this.showList = true;
         this.usuario = {};
       } else {
         alert('Erro ao cadastrar usuário!')
@@ -56,7 +66,7 @@ export class UsuariosComponent implements OnInit {
     }, error => {
       console.log(error);
       alert('erro interno do sistema - post');  
-    })
+    });
   }
 
   put() {
@@ -71,7 +81,7 @@ export class UsuariosComponent implements OnInit {
     }, error => {
       console.log(error);
       alert('erro interno do sistema - put');  
-    })
+    });
   }
 
   delete() {
@@ -86,7 +96,7 @@ export class UsuariosComponent implements OnInit {
     }, error => {
       console.log(error);
       alert('erro interno do sistema - delete');  
-    })
+    });
   }
 
   authenticate() {
@@ -101,11 +111,48 @@ export class UsuariosComponent implements OnInit {
     }, error => {
       console.log(error);
       alert('Usuário inválido');
-    })
+    });
   }
 
   getUserData() {
     this.usuarioLogado = JSON.parse(localStorage.getItem('user_logged'));
     this.isAuthenticated = this.usuarioLogado != null;
+  }
+
+  mostrarTelaRealizarCompra() {
+    this.mostrarRealizarCompra = true;
+    this.mostrarHistorico = false;
+    this.mostrarEditarDados = false;
+  }
+
+  mostrarTelaHistorico() {
+    this.mostrarRealizarCompra = false;
+    this.mostrarHistorico = true;
+    this.mostrarEditarDados = false;
+  }
+
+  mostrarTelaEditarDados() {
+    this.mostrarRealizarCompra = false;
+    this.mostrarHistorico = false;
+    this.mostrarEditarDados = true;
+  }
+  
+  voltar() {
+    this.mostrarRealizarCompra = false;
+    this.mostrarHistorico = false;
+    this.mostrarEditarDados = false;
+  }
+
+  voltarLogin() {
+    this.isAuthenticated = false;
+
+    this.usuarioLogin = {};
+  }
+
+  mudarLoginRegistro() {
+    this.showList = !this.showList;
+
+    this.usuario = {};
+    this.usuarioLogin = {};
   }
 }

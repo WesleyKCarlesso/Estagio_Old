@@ -1,26 +1,37 @@
 <h2>
     Realizar compra
 </h2>
-<form>
-    <div class="form-group">
-      <label for="nome">Produto:</label>
-      <input type="text" class="form-control" id="nome" aria-describedby="nameHelp" placeholder="Produto"
-        [(ngModel)]="usuario.nome" name="nome">
-    </div>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown button
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div>
-    <div class="form-group">
-      <label for="email">Quantidade</label>
-      <input type="email" class="form-control" id="email" placeholder="Quantidade" [(ngModel)]="usuario.email"
-        name="email">
-    </div>
-    <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
-  </form>
+<form *ngIf="!compraFeita">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Produto</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Quantidade</th>
+        <th scope="col">Selecionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos">
+        <th scope="row">{{produto.nome}}</th>
+        <th scope="row">{{produto.preco}}</th>
+        <th scope="row">
+          <input type="number" min="0" max="{{produto.quantidade}}" value="0">
+        </th>
+        <th scope="row">
+          <input type="checkbox">
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary" (click)="finalizarCompra()">Finalizar Compra</button>
+</form>
+
+<div *ngIf="compraFeita">
+  <button class="btn btn-primary" (click)="this.compraFeita = false">Voltar</button> <br>
+  <div>
+    Total: 
+  </div>
+  <button class="btn btn-primary">Copiar código</button> <br>
+  <img src="./img/qrcode.png">
+</div>

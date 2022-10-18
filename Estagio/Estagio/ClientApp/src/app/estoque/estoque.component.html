@@ -1,0 +1,23 @@
+<h2>
+    Estoque
+</h2>
+<form>
+  <br>
+  <button class="btnOpcoes btnProdutos btn btn-primary" (click)="mostrarTelaConsultarEstoque()">Consultar Estoque</button> 
+  <br> <br>
+  <button class="btnOpcoes btnEstoque btn btn-primary" (click)="mostrarTelaRealizarCompra()">Realizar Compra</button> 
+  <br> <br>
+  <button class="btnOpcoes btnHistorico btn btn-primary" (click)="mostrarTelaConsultarHistorico()">Consultar Histórico</button>
+</form>
+
+<div *ngIf="mostrarConsultarEstoque">
+  Consultar Estoque
+</div>
+
+<div *ngIf="mostrarRealizarCompra">
+  Realizar Compra
+</div>
+
+<div *ngIf="mostrarConsultarHistorico">  
+  Consultar Histórico
+</div>

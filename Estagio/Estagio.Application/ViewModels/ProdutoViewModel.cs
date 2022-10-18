@@ -11,5 +11,7 @@
         public string Nome { get; set; }
 
         public decimal Quantidade { get; set; }
+
+        public bool Ativo { get; set; }
     }
 }

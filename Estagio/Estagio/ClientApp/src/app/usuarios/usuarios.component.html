@@ -1,144 +1,67 @@
-<h3 *ngIf="isAuthenticated">Bem vindo(a), {{usuarioLogado?.usuario?.nome}}!</h3>
-<button class="btn btn-primary" (click)="showList = !showList">{{showList ? 'Registrar-se' : 'Login'}}</button>
+<div *ngIf="!isAuthenticated">
+  <button class="btn btn-primary" (click)="mudarLoginRegistro()">{{showList ? 'Registrar-se' : 'Login'}}</button>
+</div>
 <div *ngIf="showList">
-  <div *ngIf="isAuthenticated">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Ações</th>
-          <th scope="col">ID</th>
-          <th scope="col">Nome</th>
-          <th scope="col">Email</th>
-          <th scope="col">Telefone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of usuarios">
-          <th scope="row">
-            <button class="btn-primary" (click)="openDetails(usuario)">Editar</button>
-            <button class="btn-danger" (click)="delete(usuario)">Excluir</button>
-          </th>
-          <th scope="row">{{usuario.id}}</th>
-          <th scope="row">{{usuario.nome}}</th>
-          <th scope="row">{{usuario.email}}</th>
-          <th scope="row">{{usuario.telefone}}</th>
-        </tr>
-      </tbody>
-    </table>
+  <div *ngIf="isAuthenticated">      
+    <div *ngIf="!mostrarRealizarCompra && !mostrarHistorico && !mostrarEditarDados">
+      <button class="btn btn-primary" (click)="voltarLogin()">Voltar</button> <br>
 
-    <h2>Realizar Compra</h2>
-      
-    <button class="btnOpcoes btnRealizarCompra btn btn-primary">Realizar Compra</button>
+      <h3 *ngIf="isAuthenticated">Bem vindo(a), {{usuarioLogado?.usuario?.nome}}!</h3>
 
-    <table class="table tableRealizarCompra">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
+      <button class="btnOpcoes btnRealizarCompra btn btn-primary" (click)="mostrarTelaRealizarCompra()">Realizar Compra</button>
+      <button class="btnOpcoes btnHistorico btn btn-primary" (click)="mostrarTelaHistorico()">Consultar Histórico</button>
+      <button class="btnOpcoes btnEditarDados btn btn-primary" (click)="mostrarTelaEditarDados()">Editar Dados</button>
+    </div>
 
-    <button class="btnOpcoes btnHistorico btn btn-primary">Consultar Histórico</button>
-
-    <table class="table tableHistorico">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <button class="btnOpcoes btnEditarDados btn btn-primary">Editar Dados</button>
-
-    <table class="table tableEditarDados">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngIf="mostrarRealizarCompra">
+      <button class="btn btn-primary" (click)="voltar()">Voltar</button> <br>
+      <app-compra></app-compra>
+    </div>
+    
+    <div *ngIf="mostrarHistorico">
+      <button class="btn btn-primary" (click)="voltar()">Voltar</button> <br>
+      Historico
+    </div>
+    
+    <div *ngIf="mostrarEditarDados">
+      <button class="btn btn-primary" (click)="voltar()">Voltar</button> <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Ações</th>
+            <th scope="col">ID</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telefone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <th scope="row">
+              <button class="btn-primary" (click)="openDetails(usuario)">Editar</button>
+              <button class="btn-danger" (click)="delete(usuario)">Excluir</button>
+            </th>
+            <th scope="row">{{usuario.id}}</th>
+            <th scope="row">{{usuario.nome}}</th>
+            <th scope="row">{{usuario.email}}</th>
+            <th scope="row">{{usuario.telefone}}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <div *ngIf="!showList">
   <form>
     <div class="form-group">
-      <label for="nome">Nome:</label>
+      <label for="nome">Nome</label>
       <input type="text" class="form-control" id="nome" aria-describedby="nameHelp" placeholder="Nome"
         [(ngModel)]="usuario.nome" name="nome">
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="usuario.email" name="email">
+      <input type="email" class="form-control emailFormControl" id="email" placeholder="Email" [(ngModel)]="usuario.email" name="email">
     </div>
     <div class="form-group">
       <label for="login">Login</label>
@@ -167,7 +90,7 @@
     </div>
     <div class="form-group">
       <label for="exampleInputName">Senha</label>
-      <input type="text" class="form-control" id="exampleInputSenha" aria-describedby="senhaHelp" placeholder="Senha"
+      <input type="password" class="form-control" id="exampleInputSenha" aria-describedby="senhaHelp" placeholder="Senha"
         [(ngModel)]="usuarioLogin.senha" name="senha">
     </div>
     <button type="submit" class="btn btn-primary" (click)="authenticate()">Logar</button>

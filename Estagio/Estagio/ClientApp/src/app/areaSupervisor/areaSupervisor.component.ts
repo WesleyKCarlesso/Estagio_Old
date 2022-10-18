@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class AreaSupervisorComponent implements OnInit {
 
   isAuthenticated: boolean = false;
+  mostrarProdutos: boolean = false;
+  mostrarEstoque: boolean = false;
+  mostrarHistorico: boolean = false;
 
   constructor() { }
 
@@ -23,4 +26,21 @@ export class AreaSupervisorComponent implements OnInit {
     }
   }
 
+  mostrarTelaProdutos() {
+    this.mostrarProdutos = true;
+    this.mostrarEstoque = false;
+    this.mostrarHistorico = false;
+  }
+
+  mostrarTelaEstoque() {
+    this.mostrarProdutos = false;
+    this.mostrarEstoque = true;
+    this.mostrarHistorico = false;
+  }
+
+  mostrarTelaHistorico() {
+    this.mostrarProdutos = false;
+    this.mostrarEstoque = false;
+    this.mostrarHistorico = true;
+  }
 }

@@ -1,0 +1,49 @@
+<h2>
+    Lista de Produtos
+</h2>
+<div *ngIf="showList">
+  <button class="btn btn-primary" style="margin-bottom: 8px;" (click)="adicionarNovo()">Adicionar produto</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Ações</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Valor</th>
+        <th scope="col">Marca</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos">
+        <th scope="row">
+          <button class="btn-primary" (click)="openDetails(produto)">Editar</button>
+          <button class="btn-danger" (click)="delete(produto)">Excluir</button>
+        </th>
+        <th scope="row">{{produto.nome}}</th>
+        <th scope="row">{{produto.preco}}</th>
+        <th scope="row">{{produto.marca}}</th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!showList">
+  <button class="btn btn-primary" (click)="voltar()">Voltar</button>
+  <form>
+    <div class="form-group">
+      <label for="nome">Nome</label>
+      <input type="text" class="form-control nomeFormControl" id="nome" aria-describedby="nameHelp" placeholder="Nome"
+        [(ngModel)]="produto.nome" name="nome">
+    </div>
+    <div class="form-group">
+      <label for="preco">Preço</label>
+      <input type="number" class="form-control precoFormControl" id="preco" placeholder="Preço" 
+        [(ngModel)]="produto.preco" name="preco">
+    </div>
+    <div class="form-group">
+      <label for="marca">Marca</label>
+      <input type="text" class="form-control marcaFormControl" id="marca" placeholder="Marca" 
+        [(ngModel)]="produto.marca" name="marca">
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="save()">Salvar</button>
+  </form>
+</div>

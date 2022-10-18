@@ -1,59 +1,44 @@
-<h2>
-    Área do Supervisor
-</h2>
-<button class="btn btn-primary" (click)="authenticate()">Autenticação</button>
 <div *ngIf="!isAuthenticated">
   <form>
+    <h2>
+      Área do Supervisor
+    </h2>
     <div class="form-group">
       <label for="exampleInputEmail">Email</label>
       <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email" name="email">
     </div>
     <div class="form-group">
       <label for="exampleInputName">Senha</label>
-      <input type="text" class="form-control" id="exampleInputSenha" aria-describedby="senhaHelp" placeholder="Senha" name="senha">
+      <input type="password" class="form-control" id="exampleInputSenha" aria-describedby="senhaHelp" placeholder="Senha" name="senha">
     </div>
-    <button type="submit" class="btn btn-primary">Entrar</button>
+    <button type="submit" class="btn btn-primary" (click)="authenticate()">Entrar</button>
   </form>
 </div>
-<div *ngIf="isAuthenticated">
+<div *ngIf="isAuthenticated && !mostrarProdutos && !mostrarEstoque && !mostrarHistorico">
+  <h2>
+    Área do Supervisor
+  </h2>
   <form>
     <br>
-    <button class="btnOpcoes btnProdutos btn btn-primary">Produtos</button> 
+    <button class="btnOpcoes btnProdutos btn btn-primary" (click)="mostrarTelaProdutos()">Produtos</button> 
     <br> <br>
-    <button class="btnOpcoes btnEstoque btn btn-primary">Estoque</button> 
+    <button class="btnOpcoes btnEstoque btn btn-primary" (click)="mostrarTelaEstoque()">Estoque</button> 
     <br> <br>
-    <button class="btnOpcoes btnHistorico btn btn-primary">Histórico de vendas</button>
+    <button class="btnOpcoes btnHistorico btn btn-primary" (click)="mostrarTelaHistorico()">Histórico de vendas</button>
   </form>
 </div>
 
+<div *ngIf="mostrarProdutos">
+  <button class="btn btn-primary" (click)="mostrarProdutos = false">Voltar</button> <br>
+  <app-produto></app-produto>
+</div>
 
-<table class="table tableEditarDados">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="mostrarEstoque">
+  <button class="btn btn-primary" (click)="mostrarEstoque = false">Voltar</button> <br>
+  <app-estoque></app-estoque>  
+</div>
+
+<div *ngIf="mostrarHistorico">  
+  <button class="btn btn-primary" (click)="mostrarHistorico = false">Voltar</button> <br>
+  Lista de Historico de Vendas
+</div>
