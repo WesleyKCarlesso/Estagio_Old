@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioDataService } from '../_data-services/usuario.data-service';
 
 @Component({
   selector: 'app-areaSupervisor',
@@ -11,19 +12,33 @@ export class AreaSupervisorComponent implements OnInit {
   mostrarProdutos: boolean = false;
   mostrarEstoque: boolean = false;
   mostrarHistorico: boolean = false;
+  usuarioLogin: any = {};
 
-  constructor() { }
+  constructor(private usuarioDataService: UsuarioDataService) { }
 
   ngOnInit() {
   }
 
-  authenticate() {
-    if (this.isAuthenticated) {
-      this.isAuthenticated = false;
-    }
-    else {
-      this.isAuthenticated = true;
-    }
+  // authenticate() {
+  //   if (this.isAuthenticated) {
+  //     this.isAuthenticated = false;
+  //   }
+  //   else {
+  //     this.isAuthenticated = true;
+  //   }
+  // }
+
+  authenticateAdmin() {
+    this.usuarioDataService.authenticateAdmin(this.usuarioLogin).subscribe((data:any) => {
+      if (data.usuario) {
+        this.isAuthenticated = true;
+      } else {
+        alert('Usuário inválido!')
+      }
+    }, error => {
+      console.log(error);
+      alert('Usuário inválido');
+    });
   }
 
   mostrarTelaProdutos() {

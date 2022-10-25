@@ -23,6 +23,13 @@ namespace Estagio.Controllers
             return Ok(produtos);
         }
 
+        [HttpGet("getProdutosParaCompra"), AllowAnonymous]
+        public IActionResult GetProdutosParaCompra()
+        {
+            var produtos = this.produtoService.GetProdutosParaCompra();
+            return Ok(produtos);
+        }
+
         [HttpPut, AllowAnonymous]
         public IActionResult Put(ProdutoViewModel produtoViewModel)
         {

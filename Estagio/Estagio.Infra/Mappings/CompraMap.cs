@@ -10,7 +10,7 @@ namespace Estagio.Data.Mappings
         {
             builder.Property(x => x.Id).IsRequired();
 
-            builder.Property(x => x.IdUsuario).HasColumnName("IdUsuario");
+            builder.Property(x => x.UsuarioId).HasColumnName("UsuarioId");
             builder.Property(x => x.Ativo).HasColumnName("Ativo");
         }
     }

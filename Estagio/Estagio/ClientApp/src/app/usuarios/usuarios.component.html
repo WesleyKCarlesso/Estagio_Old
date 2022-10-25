@@ -20,7 +20,22 @@
     
     <div *ngIf="mostrarHistorico">
       <button class="btn btn-primary" (click)="voltar()">Voltar</button> <br>
-      Historico
+      <div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Data da compra</th>
+              <th scope="col">Valor total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let compra of historicoCompraUsuario">
+              <th scope="row">{{compra.data}}</th>
+              <th scope="row">{{compra.valor}}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     
     <div *ngIf="mostrarEditarDados">

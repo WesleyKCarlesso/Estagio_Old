@@ -2,9 +2,9 @@
 {
     public class CompraProdutoViewModel
     {
-        public long? IdCompra { get; set; }
+        public long? CompraId { get; set; }
 
-        public long? IdProduto { get; set; }
+        public long? ProdutoId { get; set; }
 
         public decimal Quantidade { get; set; }
 

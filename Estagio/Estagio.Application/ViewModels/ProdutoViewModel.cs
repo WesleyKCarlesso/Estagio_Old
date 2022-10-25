@@ -1,4 +1,6 @@
-﻿namespace Estagio.Application.ViewModels
+﻿using System.Collections.Generic;
+
+namespace Estagio.Application.ViewModels
 {
     public class ProdutoViewModel
     {
@@ -12,6 +14,10 @@
 
         public decimal Quantidade { get; set; }
 
+        public decimal QuantidadeAFornecer { get; set; }
+
         public bool Ativo { get; set; }
+
+        public List<CompraProdutoViewModel> CompraProdutos { get; set; }
     }
 }

@@ -15,6 +15,7 @@ import { AreaSupervisorComponent } from './areaSupervisor/areaSupervisor.compone
 import { ProdutoComponent } from './produto/produto.component';
 import { EstoqueComponent } from './estoque/estoque.component';
 import { ProdutoDataService } from './_data-services/produto.data-service';
+import { CompraDataService } from './_data-services/compra.data-service';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ProdutoDataService } from './_data-services/produto.data-service';
   ],
   providers: [
     UsuarioDataService,
-    ProdutoDataService
+    ProdutoDataService,
+    CompraDataService
   ],
   bootstrap: [AppComponent]
 })

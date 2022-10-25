@@ -13,7 +13,7 @@ namespace Estagio.Domain.Entities
 
         public DateTime Data { get; set; }
 
-        public long? IdUsuario { get; set; }
+        public long? UsuarioId { get; set; }
 
         public List<CompraProduto> CompraProdutos { get; set; }
     }

@@ -129,6 +129,28 @@ namespace Estagio.Application.Services
             return new UsuarioAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(usuario), TokenService.GenerateToken(usuario));
         }
 
+        public UsuarioAuthenticateResponseViewModel AuthenticateAdmin(UsuarioAuthenticateRequestViewModel _usuario)
+        {
+            if (string.IsNullOrEmpty(_usuario.Email) || string.IsNullOrEmpty(_usuario.Senha))
+            {
+                throw new Exception("Email/Senha são obrigatórios");
+            }
+
+            _usuario.Senha = CriptografarSenha(_usuario.Senha);
+
+            Usuario usuario = this.usuarioRepository
+                .Find(x =>
+                    x.Ativo
+                    && x.Admin
+                    && x.Email.ToLower() == _usuario.Email.ToLower()
+                    && x.Senha.ToLower() == _usuario.Senha.ToLower());
+
+            if (usuario == null)
+                throw new Exception("Usuario admin não encontrado");
+
+            return new UsuarioAuthenticateResponseViewModel(mapper.Map<UsuarioViewModel>(usuario), TokenService.GenerateToken(usuario));
+        }
+
         private string CriptografarSenha(string senha)
         {
             try

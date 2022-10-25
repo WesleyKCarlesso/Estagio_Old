@@ -23,4 +23,8 @@ export class ProdutoDataService {
     delete(produtoId) {
         return this.http.delete(this.module + '/' + produtoId)
     }
+    
+    getProdutosParaCompra() {
+        return this.http.get(this.module + "/getProdutosParaCompra")
+    }
 }

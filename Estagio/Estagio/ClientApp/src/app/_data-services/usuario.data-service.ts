@@ -27,4 +27,8 @@ export class UsuarioDataService {
     authenticate(data) {
         return this.http.post(this.module + '/authenticate', data)
     }
+
+    authenticateAdmin(data) {
+        return this.http.post(this.module + '/authenticateAdmin', data)
+    }
 }

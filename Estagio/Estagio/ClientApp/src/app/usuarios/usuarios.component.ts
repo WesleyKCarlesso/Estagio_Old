@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CompraDataService } from '../_data-services/compra.data-service';
 import { UsuarioDataService } from '../_data-services/usuario.data-service';
 
 @Component({
@@ -10,6 +11,7 @@ import { UsuarioDataService } from '../_data-services/usuario.data-service';
 export class UsuariosComponent implements OnInit {
 
   usuarios: any[] = [];
+  historicosCompraUsuario: any[] = [];
   usuario: any = {};
   usuarioLogado: any = {};
   usuarioLogin: any = {};
@@ -22,6 +24,7 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     private usuarioDataService: UsuarioDataService,
+    private compraDataService: CompraDataService,
     private formBuilder: FormBuilder
   ) { }
 
@@ -104,6 +107,7 @@ export class UsuariosComponent implements OnInit {
       if (data.usuario) {
         localStorage.setItem('user_logged', JSON.stringify(data));
         this.get();
+        this.getHistoricoComprasUsuario();
         this.getUserData();
       } else {
         alert('Usuário inválido!')
@@ -111,6 +115,20 @@ export class UsuariosComponent implements OnInit {
     }, error => {
       console.log(error);
       alert('Usuário inválido');
+    });
+  }
+
+  getHistoricoComprasUsuario() {
+    let idUsuario = JSON.parse(localStorage.user_logged).usuario.id;
+    this.compraDataService.getHistoricoComprasUsuario(idUsuario).subscribe((data:any) => {
+      if (data) {
+        this.historicosCompraUsuario = data;
+      } else {
+        alert('Histórico inválido!')
+      }
+    }, error => {
+      console.log(error);
+      alert('Erro ao buscar o histórico de compras do usuário');
     });
   }
 

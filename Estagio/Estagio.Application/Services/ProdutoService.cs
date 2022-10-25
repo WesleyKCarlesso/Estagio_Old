@@ -6,6 +6,7 @@ using Estagio.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContext;
 
 namespace Estagio.Application.Services
@@ -28,6 +29,19 @@ namespace Estagio.Application.Services
             IEnumerable<Produto> produtos = this.produtoRepository.GetAll();
 
             produtosViewModel = mapper.Map<List<ProdutoViewModel>>(produtos);
+
+            return produtosViewModel;
+        }
+
+        public List<ProdutoViewModel> GetProdutosParaCompra()
+        {
+            List<ProdutoViewModel> produtosViewModel = new List<ProdutoViewModel>();
+
+            IEnumerable<Produto> produtos = this.produtoRepository.GetAll();
+
+            produtosViewModel = mapper.Map<List<ProdutoViewModel>>(produtos);
+
+            produtosViewModel = produtosViewModel.Where(x => x.Quantidade > 0).ToList();
 
             return produtosViewModel;
         }

@@ -7,6 +7,8 @@ namespace Estagio.Application.Interfaces
     {
         List<ProdutoViewModel> GetAll();
 
+        List<ProdutoViewModel> GetProdutosParaCompra();
+
         bool Post(ProdutoViewModel produtoViewModel);
 
         bool Put(ProdutoViewModel produtoViewModel);
