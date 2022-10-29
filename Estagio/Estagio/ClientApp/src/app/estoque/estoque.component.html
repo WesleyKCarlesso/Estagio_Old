@@ -1,23 +1,58 @@
-<h2>
+<form *ngIf="!mostrarConsultarEstoque && !mostrarRealizarCompra">
+  <h2>
     Estoque
-</h2>
-<form>
+  </h2>
   <br>
   <button class="btnOpcoes btnProdutos btn btn-primary" (click)="mostrarTelaConsultarEstoque()">Consultar Estoque</button> 
   <br> <br>
   <button class="btnOpcoes btnEstoque btn btn-primary" (click)="mostrarTelaRealizarCompra()">Realizar Compra</button> 
-  <br> <br>
-  <button class="btnOpcoes btnHistorico btn btn-primary" (click)="mostrarTelaConsultarHistorico()">Consultar Histórico</button>
 </form>
 
 <div *ngIf="mostrarConsultarEstoque">
-  Consultar Estoque
+  <h2>
+    Estoque
+  </h2>
+  <button class="btn btn-primary" (click)="mostrarConsultarEstoque = false">Voltar</button> <br> <br>
+  <input type="text" name="filtrar" placeholder="Pesquisar" maxlength="40" ngModel (ngModelChange)="filtrar($event)">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Produto</th>
+        <th scope="col">Quantidade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtosFiltrados">
+        <th scope="row">{{produto.nome}}</th>
+        <th scope="row">{{produto.quantidade}}</th>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <div *ngIf="mostrarRealizarCompra">
-  Realizar Compra
-</div>
-
-<div *ngIf="mostrarConsultarHistorico">  
-  Consultar Histórico
+  <h2>
+    Realizar Compra para o estoque
+  </h2>
+  <button class="btn btn-primary" (click)="mostrarRealizarCompra = false">Voltar</button> <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Produto</th>
+        <th scope="col">Quantidade atual</th>
+        <th scope="col">Quantidade a adicionar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let produto of produtos">
+        <th scope="row">{{produto.nome}}</th>
+        <th scope="row">{{produto.quantidade}}</th>
+        <th scope="row">
+          <input type="number" min="0" max="1000" value="0" class="form-control" id="quantidade" aria-describedby="nameHelp"
+          [(ngModel)]="produto.quantidadeAFornecer" name="quantidade">
+        </th>
+      </tr>
+    </tbody>
+  </table>
+  <button type="submit" class="btn btn-primary" (click)="realizarCompraEstoque()">Realizar Compra</button>
 </div>

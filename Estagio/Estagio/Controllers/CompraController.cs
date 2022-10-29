@@ -18,7 +18,7 @@ namespace Estagio.Controllers
         }
 
         [HttpPost, AllowAnonymous]
-        public IActionResult RealizarCompra(List<ProdutoViewModel> produtos)
+        public IActionResult RealizarCompra(List<ProdutoViewModel> produtos, int id)
         {
             return Ok(compraService.RealizarCompra(produtos));
         }
@@ -26,7 +26,7 @@ namespace Estagio.Controllers
         [HttpGet("GetHistoricoComprasUsuario/{id:int}"), AllowAnonymous]
         public IActionResult GetHistoricoComprasUsuario(int id)
         {
-            return null;
+            return Ok(true);
         }
     }
 }

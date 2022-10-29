@@ -25,10 +25,8 @@
 </form>
 
 <div *ngIf="compraFeita">
-  <button class="btn btn-primary" (click)="this.compraFeita = false">Voltar</button> <br>
-  <div>
-    Total: {{this.total}} R$
-  </div>
-  <button class="btn btn-primary">Copiar código</button> <br>
-  <img src="./img/qrcode.png">
+  <button class="btn btn-primary"(click)="this.compraFeita = false">Voltar</button> <br> <br>
+  <h1 style="margin-right: 30px;">Total: {{this.total}} R$</h1>
+  <button class="btn btn-primary">Copiar código</button> <br> <br>
+  <img class="float_left" style="height: 300px;" src="{{qrcode}}">
 </div>

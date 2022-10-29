@@ -2,6 +2,7 @@
 using Estagio.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Estagio.Controllers
 {
@@ -30,6 +31,13 @@ namespace Estagio.Controllers
             return Ok(produtos);
         }
 
+        [HttpGet("getProdutosEstoque"), AllowAnonymous]
+        public IActionResult GetProdutosEstoque()
+        {
+            var produtos = this.produtoService.GetProdutosEstoque();
+            return Ok(produtos);
+        }
+
         [HttpPut, AllowAnonymous]
         public IActionResult Put(ProdutoViewModel produtoViewModel)
         {
@@ -48,6 +56,12 @@ namespace Estagio.Controllers
         public IActionResult Delete(int id)
         {
             return Ok(this.produtoService.Delete(id));
+        }
+
+        [HttpPost("realizarCompraEstoque"), AllowAnonymous]
+        public IActionResult RealizarCompra(List<ProdutoViewModel> produtos)
+        {
+            return Ok(produtoService.RealizarCompraEstoque(produtos));
         }
     }
 }

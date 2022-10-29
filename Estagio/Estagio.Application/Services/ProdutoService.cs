@@ -32,16 +32,23 @@ namespace Estagio.Application.Services
 
             return produtosViewModel;
         }
-
+        
         public List<ProdutoViewModel> GetProdutosParaCompra()
         {
-            List<ProdutoViewModel> produtosViewModel = new List<ProdutoViewModel>();
-
             IEnumerable<Produto> produtos = this.produtoRepository.GetAll();
 
-            produtosViewModel = mapper.Map<List<ProdutoViewModel>>(produtos);
+            List<ProdutoViewModel>  produtosViewModel = mapper.Map<List<ProdutoViewModel>>(produtos);
 
             produtosViewModel = produtosViewModel.Where(x => x.Quantidade > 0).ToList();
+
+            return produtosViewModel;
+        }
+
+        public List<ProdutoViewModel> GetProdutosEstoque()
+        {
+            IEnumerable<Produto> produtos = this.produtoRepository.GetAll();
+
+            List<ProdutoViewModel> produtosViewModel = mapper.Map<List<ProdutoViewModel>>(produtos);
 
             return produtosViewModel;
         }
@@ -86,6 +93,18 @@ namespace Estagio.Application.Services
         public bool Delete(long id)
         {
             return this.produtoRepository.Delete(id);
+        }
+
+        public bool RealizarCompraEstoque(List<ProdutoViewModel> produtos)
+        {
+            foreach (var produto in produtos)
+            {
+                produto.Quantidade += produto.QuantidadeAFornecer;
+                Produto pr = mapper.Map<Produto>(produto);
+                produtoRepository.Update(pr);
+            }
+
+            return true;
         }
     }
 }

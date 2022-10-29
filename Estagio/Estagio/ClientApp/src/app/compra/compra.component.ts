@@ -13,6 +13,7 @@ export class CompraComponent implements OnInit {
   produtosSelecionados: any[] = [];
   compraFeita: boolean = false;
   total: any = 0.0;
+  qrcode:string = "assets/images/qrcode.png";
 
   constructor(
     private produtoDataService: ProdutoDataService,
@@ -24,7 +25,7 @@ export class CompraComponent implements OnInit {
   }
 
   getAll() {
-    this.produtoDataService.getProdutosParaCompra().subscribe((data:any[]) => {
+    this.produtoDataService.getProdutosParaCompra().subscribe((data:any) => {
       this.produtos = data;
     }, error => {
       console.log(error);

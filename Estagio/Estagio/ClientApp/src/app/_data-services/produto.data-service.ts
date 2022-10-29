@@ -27,4 +27,12 @@ export class ProdutoDataService {
     getProdutosParaCompra() {
         return this.http.get(this.module + "/getProdutosParaCompra")
     }
+
+    getProdutosEstoque() {
+        return this.http.get(this.module + "/getProdutosEstoque")
+    }
+
+    realizarCompraEstoque(data) {
+        return this.http.post(this.module + '/realizarCompraEstoque', data);
+    }
 }

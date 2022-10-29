@@ -15,7 +15,7 @@
     <tbody>
       <tr *ngFor="let produto of produtos">
         <th scope="row">
-          <button class="btn-primary" (click)="openDetails(produto)">Editar</button>
+          <button class="btn-primary mr-2" (click)="openDetails(produto)">Editar</button>
           <button class="btn-danger" (click)="delete(produto)">Excluir</button>
         </th>
         <th scope="row">{{produto.nome}}</th>

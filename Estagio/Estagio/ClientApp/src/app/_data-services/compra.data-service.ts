@@ -13,6 +13,6 @@ export class CompraDataService {
     }
 
     getHistoricoComprasUsuario(usuarioId) {
-        return this.http.get(this.module + '/GetHistoricoComprasUsuario' + usuarioId);
+        return this.http.get(this.module + '/GetHistoricoComprasUsuario' + '/' +  usuarioId);
     }
 }

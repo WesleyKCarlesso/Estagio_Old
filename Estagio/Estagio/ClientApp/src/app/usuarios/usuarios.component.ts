@@ -120,7 +120,7 @@ export class UsuariosComponent implements OnInit {
 
   getHistoricoComprasUsuario() {
     let idUsuario = JSON.parse(localStorage.user_logged).usuario.id;
-    this.compraDataService.getHistoricoComprasUsuario(idUsuario).subscribe((data:any) => {
+    this.compraDataService.getHistoricoComprasUsuario(idUsuario).subscribe((data:any[]) => {
       if (data) {
         this.historicosCompraUsuario = data;
       } else {

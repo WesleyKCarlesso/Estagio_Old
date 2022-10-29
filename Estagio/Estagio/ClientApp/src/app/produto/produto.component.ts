@@ -19,7 +19,7 @@ export class ProdutoComponent implements OnInit {
   }
 
   getAll() {
-    this.produtoDataService.getAll().subscribe((data:any[]) => {
+    this.produtoDataService.getAll().subscribe((data:any) => {
       this.produtos = data;
     }, error => {
       console.log(error);
@@ -28,6 +28,18 @@ export class ProdutoComponent implements OnInit {
   }
 
   post() {
+    if (this.produtos.some(x => x.nome.trim().toLowerCase() == this.produto.nome.trim().toLowerCase() && x.marca.trim().toLowerCase() == this.produto.marca.trim().toLowerCase())) {
+      alert('Já existe um produto ativo com este nome e marca!');
+      return false;
+    }
+    if (this.produto.preco == 0) {
+      alert('O produto deve ter valor maior que 0!');
+      return false;  
+    }
+    if (this.produto.nome.trim() == '' || this.produto.marca.trim() == '') {
+      alert('O nome/marca não podem estar vazios!');
+      return false;  
+    }
     this.produtoDataService.post(this.produto).subscribe(data => {
       if (data) {
         alert('Produto cadastrado com sucesso!');
