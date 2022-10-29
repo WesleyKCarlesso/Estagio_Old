@@ -1,11 +1,12 @@
-<h2>
-    Realizar compra
-</h2>
 <form *ngIf="!compraFeita">
+  <h2>
+    Realizar compra
+  </h2>
   <table class="table">
     <thead>
       <tr>
         <th scope="col">Produto</th>
+        <th scope="col">Marca</th>
         <th scope="col">Valor</th>
         <th scope="col">Quantidade</th>
       </tr>
@@ -13,6 +14,7 @@
     <tbody>
       <tr *ngFor="let produto of produtos">
         <th scope="row">{{produto.nome}}</th>
+        <th scope="row">{{produto.marca}}</th>
         <th scope="row">{{produto.preco}}</th>
         <th scope="row">
           <input type="number" min="0" max="{{produto.quantidade}}" value="0" class="form-control" id="quantidade" aria-describedby="nameHelp"
@@ -25,8 +27,13 @@
 </form>
 
 <div *ngIf="compraFeita">
-  <button class="btn btn-primary"(click)="this.compraFeita = false">Voltar</button> <br> <br>
-  <h1 style="margin-right: 30px;">Total: {{this.total}} R$</h1>
-  <button class="btn btn-primary">Copiar código</button> <br> <br>
-  <img class="float_left" style="height: 300px;" src="{{qrcode}}">
+  <h2>
+    Realizar pagamento
+  </h2>
+  <br> <br>
+  <div style="align-items: center;">
+    <h2 style="margin-right: 30px; margin-left: 40%;">Total: {{this.total}} R$</h2> <br>
+    <img class="float_left" style="height: 300px; margin-left: 39%;" src="{{qrcode}}">
+    <button style="margin-left: 41%;" class="btn btn-primary">Copiar código</button>
+  </div>
 </div>
